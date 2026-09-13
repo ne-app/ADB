@@ -47,10 +47,12 @@ static void qsi_index_chunks(const std::string& path) {
 
   while (!flg.test_and_set(std::memory_order_acquire));
 
+  // TODO: Fix this horrendous resource trap
   std::stringstream ss;
   ss << file.rdbuf();
-
   std::string content = ss.str();
+  //
+
   size_t half_per_four = content.size() / kNeQSIndexWeight;
   size_t off = 0;
 
