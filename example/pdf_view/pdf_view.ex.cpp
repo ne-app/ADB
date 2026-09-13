@@ -12,7 +12,7 @@ int main(int argc, char** argv) {
   try {
     ne_app::tasks::task_tag t;
 
-    ne_app::tasks::run<void(std::atomic_flag&)>([&argv](std::atomic_flag& fl) { 
+    ne_app::tasks::await_first<void(std::atomic_flag&)>([&argv](std::atomic_flag& fl) { 
       ::ne_app::pdf::render(argv[1], ::strlen(argv[1]));
       fl.clear(std::memory_order_release);
     }, t);

@@ -6,7 +6,6 @@
 
 #include <atomic>
 #include <functional>
-#include <future>
 
 namespace ne_app::tasks {
 
@@ -31,26 +30,25 @@ void run(const std::function<Args>& fn, task_tag& t, Args2&&... a) {
 }
 
 /// @brief protocol definitions for 'await_or_error' type of return promises.
-enum class await_or_error {
-  kError = 588,
-  kNoAwait = kError,
-  kSuccess = 88,
+enum class await_or_error : int32_t {
+  error = 588,
+  success = 589,
 };
 
 /// @brief Await task first, then respond.
-template <typename RetProm, typename Args, typename... Args2>
-std::promise<RetProm> await_first(const std::function<Args>& fn, task_tag& t, Args2&&... a) {
+template <typename Args, typename... Args2>
+await_or_error await_first(const std::function<Args>& fn, task_tag& t, Args2&&... a) {
   while (!t.tf_.test_and_set(std::memory_order_acquire));
 
   try {
     co_await fn(t.tf_, a...);
   } catch (...) {
     t.tf_.clear(std::memory_order_release);
-    co_return RetProm::kError;
+    co_return await_or_error::error;
   }
 
   t.tf_.clear(std::memory_order_release);
-  co_return RetProm::kSuccess;
+  co_return await_or_error::success;
 }
 
 }  // namespace ne_app::tasks
