@@ -6,8 +6,11 @@
 
 #include <atomic>
 #include <functional>
+#include <coroutine>
 
 namespace ne_app::tasks {
+
+struct task_promise;
 
 struct task_tag final {
   std::atomic_flag tf_{};
@@ -50,5 +53,19 @@ await_or_error await_first(const std::function<Args>& fn, task_tag& t, Args2&&..
   t.tf_.clear(std::memory_order_release);
   co_return await_or_error::success;
 }
+
+struct task_coroutine : std::coroutine_handle<task_promise>
+{
+    using promise_type = task_promise;
+};
+
+struct task_promise
+{
+    task_coroutine get_return_object() { return {task_coroutine::from_promise(*this)}; }
+    std::suspend_always initial_suspend() noexcept { return {}; }
+    std::suspend_always final_suspend() noexcept { return {}; }
+    void return_void() {}
+    void unhandled_exception() {}
+};
 
 }  // namespace ne_app::tasks
