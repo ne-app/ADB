@@ -6,25 +6,34 @@
 #include <boost/throw_exception.hpp>
 #include <exception>
 #include <filesystem>
-#include <ne_app/quickstart/detail.hpp>
+#include <ne_app/quickstart/quickstart.hpp>
 
-namespace ne_app::qs::detail {
+namespace ne_app::qs {
 
 /// @brief path+chunk combo for the QS chunks.
-static std::vector<std::pair<std::string, std::string>> chunks_of_documents;
+std::vector<std::pair<std::string, std::string>> chunks_of_documents;
+
+namespace detail {
+
+void throw_error(const std::exception& e) {
+  std::printf("QS-ERROR: Location: %s", e.what());
+  ::boost::throw_with_location(e);
+}
+
+}  // namespace detail
 
 /// @brief checks if the chunks aren't too big.
-static bool qsi_index_chunks_too_big() noexcept {
+bool is_too_large() noexcept {
   if (chunks_of_documents.empty()) return false;
 
   constexpr auto max_memory_limit = 16'000'000;
-  
+
   return chunks_of_documents.size() > 16'000'000;
 }
 
 /// @brief Adds the chunks to the QS append-only chunks_of_documents part.
 /// @param path the filesystem path used to index
-static void qs_index_chunks(const std::string& path) {
+void index_file(const std::string& path) {
   if (false == std::filesystem::exists(path)) return;
   if (false == std::filesystem::is_regular_file(path)) return;
   if (true == std::filesystem::is_block_file(path)) return;
@@ -32,11 +41,12 @@ static void qs_index_chunks(const std::string& path) {
   std::fstream file(path, std::ios::in | std::ios::binary);
 
   if (!file.is_open()) {
-    ::boost::throw_exception(std::runtime_error("Failed to open file: " + path));
+    ::boost::throw_exception(
+        std::runtime_error("Failed to open file: " + path));
     return;
   }
 
-  if (!qsi_index_chunks_too_big()) return;
+  if (!is_too_large()) return;
 
   std::atomic_flag flg = ATOMIC_FLAG_INIT;
 
@@ -54,18 +64,16 @@ static void qs_index_chunks(const std::string& path) {
     constexpr auto offset_per_jump = 8196;
 
     for (size_t off_cont{}; content.size(); ++off_cont) {
-      chunks_of_documents.emplace_back(path, content.substr(off_cont + off_card, offset_per_jump));
+      chunks_of_documents.emplace_back(
+          path, content.substr(off_cont + off_card, offset_per_jump));
       off_card += offset_per_jump;
     }
 
     flg.clear(std::memory_order_release);
   } catch (const std::exception& e) {
     flg.clear(std::memory_order_release);
-
-    std::printf("QS-ERROR: Location: %s", e.what());
-    
-    ::boost::throw_with_location(e);
+    detail::throw_error(e);
   }
 }
 
-}  // namespace ne_app::qs::detail
+}  // namespace ne_app::qs

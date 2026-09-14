@@ -38,7 +38,7 @@ enum : int32_t {
 };
 
 /// @brief Convert file type to string.
-static inline const char* qs_file_type_to_str(int16_t type) {
+inline const char* qs_file_type_to_str(int16_t type) {
   switch (type) {
     case kQSFilePDF:
       return "PDF";
@@ -56,7 +56,7 @@ static inline const char* qs_file_type_to_str(int16_t type) {
 }
 
 /// @brief Convert file magic number to string.
-static inline const char* qs_file_magic_to_str(int32_t magic) {
+inline const char* qs_file_magic_to_str(int32_t magic) {
   switch (magic) {
     case kQSMagicFilePDF:
       return "PDF";
@@ -78,3 +78,10 @@ struct qs_tag final {
 };
 
 }  // namespace ne_app::qs::detail
+
+namespace ne_app::qs {
+
+  bool is_too_large() noexcept;
+void index_file(const std::string& path);
+
+}  // namespace ne_app::qs
