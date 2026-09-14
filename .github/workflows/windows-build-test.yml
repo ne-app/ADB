@@ -1,4 +1,4 @@
-name: Ne.app ADB Windows [BUILD]
+name: Ne.app AVKON Windows [BUILD]
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     branches: [ "develop" ]
 
 env:
-  BUILD_TYPE: ADB_BUILD
+  BUILD_TYPE: AVKON_BUILD
 
 jobs:
   build:

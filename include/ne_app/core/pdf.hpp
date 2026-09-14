@@ -2,8 +2,8 @@
 // Copyright 2026, Ne.app. All rights reserved
 // Official repository: https://github.com/ne-app/adb
 
-#ifndef NEAPP_ADB_PDF_HPP
-#define NEAPP_ADB_PDF_HPP
+#ifndef NEAPP_AVKON_PDF_HPP
+#define NEAPP_AVKON_PDF_HPP
 
 #include <ne_app/core/store.hpp>
 #include <sstream>

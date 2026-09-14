@@ -2,8 +2,8 @@
 // Copyright 2026, Ne.app. All rights reserved
 // Official repository: https://github.com/ne-app/adb
 
-#ifndef NEAPP_ADB_CORE_HPP
-#define NEAPP_ADB_CORE_HPP
+#ifndef NEAPP_AVKON_CORE_HPP
+#define NEAPP_AVKON_CORE_HPP
 
 #include <ne_app/core/detail/config.hpp>
 #include <string>
@@ -30,4 +30,4 @@ struct storage_object final : public Pair {
 
 }  // namespace ne_app::core
 
-#endif  // ifndef NEAPP_ADB_CORE_HPP
+#endif  // ifndef NEAPP_AVKON_CORE_HPP

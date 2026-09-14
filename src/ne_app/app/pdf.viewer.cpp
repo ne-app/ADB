@@ -21,7 +21,7 @@
 
 #include <fstream>
 
-static constexpr auto kViewName = "ADB - PDF Viewer";
+static constexpr auto kViewName = "AVKON - PDF Viewer";
 
 int ::ne_app::pdf::render(const char* path, const size_t len, bool debug) {
   if (!len) return EXIT_FAILURE;

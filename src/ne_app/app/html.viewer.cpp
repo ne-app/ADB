@@ -21,7 +21,7 @@
 
 #include <fstream>
 
-static constexpr auto kViewName = "ADB - HTML Viewer";
+static constexpr auto kViewName = "AVKON - HTML Viewer";
 
 int ::ne_app::html::render(const char* path, const size_t len, bool debug) {
   if (!len) return EXIT_FAILURE;

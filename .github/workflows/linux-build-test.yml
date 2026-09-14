@@ -1,4 +1,4 @@
-name: Ne.app ADB Linux [BUILD]
+name: Ne.app AVKON Linux [BUILD]
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     branches: [ "develop" ]
 
 env:
-  BUILD_TYPE: ADB_BUILD
+  BUILD_TYPE: AVKON_BUILD
 
 jobs:
   build:
