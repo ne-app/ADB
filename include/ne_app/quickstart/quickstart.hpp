@@ -77,7 +77,7 @@ using qs_exception = std::runtime_error;
 
 namespace ne_app::qs {
 
-  bool is_too_large() noexcept;
+bool is_too_large() noexcept;
 void index_file(const std::string& path);
 
 }  // namespace ne_app::qs

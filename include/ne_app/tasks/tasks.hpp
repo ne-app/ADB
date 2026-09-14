@@ -5,8 +5,8 @@
 #pragma once
 
 #include <atomic>
-#include <functional>
 #include <coroutine>
+#include <functional>
 
 namespace ne_app::tasks {
 
@@ -40,7 +40,8 @@ enum class await_or_error : int32_t {
 
 /// @brief Await task first, then respond.
 template <typename Args, typename... Args2>
-await_or_error await_first(const std::function<Args>& fn, task_tag& t, Args2&&... a) {
+await_or_error await_first(const std::function<Args>& fn, task_tag& t,
+                           Args2&&... a) {
   while (!t.tf_.test_and_set(std::memory_order_acquire));
 
   try {
@@ -54,18 +55,20 @@ await_or_error await_first(const std::function<Args>& fn, task_tag& t, Args2&&..
   co_return await_or_error::success;
 }
 
-struct task_coroutine : std::coroutine_handle<task_promise>
-{
-    using promise_type = task_promise;
+struct task_coroutine : std::coroutine_handle<task_promise> {
+  using promise_type = task_promise;
 };
 
-struct task_promise
-{
-    task_coroutine get_return_object() { return {task_coroutine::from_promise(*this)}; }
-    std::suspend_always initial_suspend() noexcept { return {}; }
-    std::suspend_always final_suspend() noexcept { return {}; }
-    void return_void() {}
-    void unhandled_exception() {}
+struct task_promise {
+  task_coroutine get_return_object() {
+    return {task_coroutine::from_promise(*this)};
+  }
+
+  std::suspend_always initial_suspend() noexcept { return {}; }
+  std::suspend_always final_suspend() noexcept { return {}; }
+
+  void return_void() {}
+  void unhandled_exception() {}
 };
 
 }  // namespace ne_app::tasks
