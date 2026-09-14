@@ -34,52 +34,28 @@ struct information_header final {
 };
 
 /// @brief File type of QS Cache.
-enum : int16_t {
-  kQSFileInvalid,
-  kQSFilePDF = 700,
-  kQSFileJSON,
-  kQSFileJS,
-  kQSFileHTML,
-  kQSFileConfig,
-};
-
-/// @brief File magic number of QS Cache.
-enum : int32_t {
-  kQSMagicFilePDF = 0x874f8d,
-  kQSMagicFileJSON,
-  kQSMagicFileHTML,
-  kQSMagicFileJS,
+enum class type : int16_t {
+  invalid,
+  pdf = 700,
+  json,
+  js,
+  html,
+  css,
 };
 
 /// @brief Convert file type to string.
-const char* file_type_to_str(int16_t type) {
+const char* file_type_to_str(const type& type) {
   switch (type) {
-    case kQSFilePDF:
+    case type::pdf:
       return "PDF";
-    case kQSFileJSON:
+    case type::json:
       return "JSON";
-    case kQSFileJS:
+    case type::js:
       return "JS";
-    case kQSFileHTML:
+    case type::html:
       return "HTML";
-    case kQSFileConfig:
-      return "CONFIG";
-    default:
-      return "INVALID";
-  }
-}
-
-/// @brief Convert file magic number to string.
-const char* file_magic_to_str(int32_t magic) {
-  switch (magic) {
-    case kQSMagicFilePDF:
-      return "PDF";
-    case kQSMagicFileJSON:
-      return "JSON";
-    case kQSMagicFileHTML:
-      return "HTML";
-    case kQSMagicFileJS:
-      return "JS";
+    case type::css:
+      return "CSS";
     default:
       return "INVALID";
   }
