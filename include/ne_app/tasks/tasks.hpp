@@ -4,6 +4,8 @@
 
 #pragma once
 
+#include <ne_app/core/core.hpp>
+
 #include <atomic>
 #include <coroutine>
 #include <functional>
