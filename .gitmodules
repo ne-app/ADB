@@ -1,3 +1,6 @@
 [submodule "vendor/asl"]
 	path = vendor/asl
 	url = https://github.com/stlab/adobe_source_libraries.git
+[submodule "etc/css"]
+	path = etc/css
+	url = https://github.com/jothepro/doxygen-awesome-css.git
