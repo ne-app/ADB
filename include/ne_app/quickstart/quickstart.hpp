@@ -73,10 +73,6 @@ inline const char* qs_file_magic_to_str(int32_t magic) {
 
 using qs_exception = std::runtime_error;
 
-struct qs_tag final {
-  uint64_t id_{0};
-};
-
 }  // namespace ne_app::qs::detail
 
 namespace ne_app::qs {
