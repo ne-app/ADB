@@ -1,0 +1,13 @@
+#
+#  File: Jamfile.v2
+#  Author: Amlal El Mahrouss,
+#  Copyright 2026 Ne.app, licensed under the Apache 2.0 License
+#
+
+project qs
+: default-build debug
+;
+
+exe qs.o
+    : qs.ex.cpp
+    : <cxxstd>20 ;

@@ -10,7 +10,7 @@
 
 namespace ne_app::qs {
 
-bool is_too_large() noexcept;
-void index_file(const std::string& path);
+bool AVKON_EXPORT is_too_large() noexcept;
+void AVKON_EXPORT index_file(const std::string& path);
 
 }  // namespace ne_app::qs

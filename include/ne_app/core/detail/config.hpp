@@ -8,6 +8,16 @@
 #include <boost/asio.hpp>
 #include <boost/assert/source_location.hpp>
 
+#ifndef _MSC_VER
+#ifndef AVKON_EXPORT
+#define AVKON_EXPORT __attribute__((visibility("default")))
+#endif
+#else
+#ifndef AVKON_EXPORT
+#define AVKON_EXPORT __declspec(dllexport)
+#endif
+#endif
+
 #define NEAPP_AVKON_VERSION "v1.1.1-AVKON-PUBLIC"
 #define NEAPP_AVKON_VERSION_BCD 0x1000000
 

@@ -6,3 +6,4 @@
 
 #include <ne_app/core/pdf.hpp>
 #include <ne_app/core/store.hpp>
+#include <ne_app/core/detail/config.hpp>

@@ -10,7 +10,7 @@
 
 namespace ne_app::core {
 
-void throw_pdf_error(
+void AVKON_EXPORT throw_pdf_error(
     const boost::source_location& src = BOOST_CURRENT_LOCATION);
 
 template <typename KeyType, typename ValueType>

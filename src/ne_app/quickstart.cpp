@@ -69,7 +69,7 @@ void throw_error(const std::exception& e) {
 }  // namespace detail
 
 /// @brief checks if the chunks aren't too big.
-bool is_too_large() noexcept {
+bool AVKON_EXPORT is_too_large() noexcept {
   if (kDocumentChunks.empty()) return false;
 
   constexpr auto max_memory_limit = 16'000'000;
@@ -79,7 +79,7 @@ bool is_too_large() noexcept {
 
 /// @brief Adds the chunks to the QS append-only kDocumentChunks part.
 /// @param path the filesystem path used to index
-void index_file(const std::string& path) {
+void AVKON_EXPORT index_file(const std::string& path) {
   if (false == std::filesystem::exists(path)) return;
   if (false == std::filesystem::is_regular_file(path)) return;
   if (true == std::filesystem::is_block_file(path)) return;

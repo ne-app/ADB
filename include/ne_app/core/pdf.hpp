@@ -32,14 +32,14 @@ ne_app::core::stream_type& operator>>(
 namespace ne_app::pdf {
 
 /// @brief Renders a PDF document from a webview.
-int render(const char* path, const size_t len, bool debug = false);
+int AVKON_EXPORT render(const char* path, const size_t len, bool debug = false);
 
 }  // namespace ne_app::pdf
 
 namespace ne_app::html {
 
 /// @brief Renders a PDF document from a webview.
-int render(const char* path, const size_t len, bool debug = false);
+int AVKON_EXPORT render(const char* path, const size_t len, bool debug = false);
 
 }  // namespace ne_app::html
 
